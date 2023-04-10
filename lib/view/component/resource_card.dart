@@ -242,12 +242,14 @@ class ResourceCard extends StatelessWidget {
                                       const SizedBox(
                                         width: 10.0,
                                       ),
-                                      Text(
-                                        "Avg. Rating: ${snapshot.data!.toStringAsFixed(1)}",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1,
-                                      ),
+                                      isBucketResource
+                                          ? Text(
+                                              "Avg. Rating: ${snapshot.data!.toStringAsFixed(1)}",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText1,
+                                            )
+                                          : const SizedBox.shrink()
                                     ],
                                   );
                                 } else if (snapshot.hasError) {
