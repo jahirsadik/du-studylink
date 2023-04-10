@@ -240,10 +240,10 @@ class ResourceCard extends StatelessWidget {
                                         },
                                       ),
                                       const SizedBox(
-                                        width: 5.0,
+                                        width: 10.0,
                                       ),
                                       Text(
-                                        "Average Rating: ${snapshot.data!.toStringAsFixed(2)}",
+                                        "Avg. Rating: ${snapshot.data!.toStringAsFixed(1)}",
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyText1,
