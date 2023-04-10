@@ -207,34 +207,48 @@ class ResourceCard extends StatelessWidget {
                                   isBucketResource, resource, bucket),
                               builder: (context, snapshot) {
                                 if (snapshot.hasData) {
-                                  return RatingBar.builder(
-                                    initialRating: snapshot.data!,
-                                    unratedColor: Theme.of(context).focusColor,
-                                    minRating: 0.0,
-                                    direction: Axis.horizontal,
-                                    allowHalfRating: true,
-                                    itemSize: 20,
-                                    itemCount: 5,
-                                    itemPadding: const EdgeInsets.symmetric(
-                                        horizontal: 1.0),
-                                    itemBuilder: (context, index) => Icon(
-                                      Icons.star,
-                                      color: Theme.of(context).primaryColor,
-                                    ),
-                                    onRatingUpdate: (rating) {
-                                      if (isBucketResource) {
-                                        resource.changeRating(rating);
-                                        if (bucket != null) {
-                                          bucketController
-                                              .editBucketResourceForOneUser(
-                                                  bucket!, resource);
-                                        }
-                                      } else {
-                                        resource.changeRating(rating);
-                                        resourceController
-                                            .editResource(resource);
-                                      }
-                                    },
+                                  return Row(
+                                    children: [
+                                      RatingBar.builder(
+                                        initialRating: resource.rating,
+                                        unratedColor:
+                                            Theme.of(context).focusColor,
+                                        minRating: 0.0,
+                                        direction: Axis.horizontal,
+                                        allowHalfRating: true,
+                                        itemSize: 20,
+                                        itemCount: 5,
+                                        itemPadding: const EdgeInsets.symmetric(
+                                            horizontal: 1.0),
+                                        itemBuilder: (context, index) => Icon(
+                                          Icons.star,
+                                          color: Theme.of(context).primaryColor,
+                                        ),
+                                        onRatingUpdate: (rating) {
+                                          if (isBucketResource) {
+                                            resource.changeRating(rating);
+                                            if (bucket != null) {
+                                              bucketController
+                                                  .editBucketResourceForOneUser(
+                                                      bucket!, resource);
+                                            }
+                                          } else {
+                                            resource.changeRating(rating);
+                                            resourceController
+                                                .editResource(resource);
+                                          }
+                                        },
+                                      ),
+                                      const SizedBox(
+                                        width: 5.0,
+                                      ),
+                                      Text(
+                                        snapshot.data!.toStringAsFixed(2),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1,
+                                      ),
+                                    ],
                                   );
                                 } else if (snapshot.hasError) {
                                   // TODO: Error handling
