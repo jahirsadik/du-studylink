@@ -224,7 +224,7 @@ class ResourceCard extends StatelessWidget {
                                           Icons.star,
                                           color: Theme.of(context).primaryColor,
                                         ),
-                                        onRatingUpdate: (rating) {
+                                        onRatingUpdate: (rating) async {
                                           if (isBucketResource) {
                                             resource.changeRating(rating);
                                             if (bucket != null) {
@@ -232,6 +232,10 @@ class ResourceCard extends StatelessWidget {
                                                   .editBucketResourceForOneUser(
                                                       bucket!, resource);
                                             }
+                                            rating = await findRating(
+                                                isBucketResource,
+                                                resource,
+                                                bucket);
                                           } else {
                                             resource.changeRating(rating);
                                             resourceController
