@@ -203,6 +203,7 @@ class ResourceCard extends StatelessWidget {
                           ),
                           RatingBar.builder(
                             initialRating: resource.rating.toDouble(),
+                            unratedColor: Theme.of(context).focusColor,
                             minRating: 0,
                             direction: Axis.horizontal,
                             allowHalfRating: false,
@@ -210,9 +211,9 @@ class ResourceCard extends StatelessWidget {
                             itemCount: 5,
                             itemPadding:
                                 const EdgeInsets.symmetric(horizontal: 1.0),
-                            itemBuilder: (context, index) => const Icon(
+                            itemBuilder: (context, index) => Icon(
                               Icons.star,
-                              color: Colors.yellow,
+                              color: Theme.of(context).primaryColor,
                             ),
                             onRatingUpdate: (rating) {
                               resource.changeRating(rating.toInt());

@@ -1,6 +1,7 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:salvare/controller/resource_controller.dart';
 import 'package:salvare/controller/search_controller.dart';
 import 'package:salvare/controller/tag_category_controller.dart';
@@ -287,14 +288,19 @@ class _SearchState extends State<Search> {
                   future: searchedResources,
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
-                      return ListView.builder(
-                        itemCount: snapshot.data!.length,
-                        itemBuilder: (context, index) => Padding(
-                          padding: cardListEdgeInsets,
-                          child: ResourceCard(
-                            resource: snapshot.data![index],
-                          ),
-                        ),
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        child: AlignedGridView.count(
+                            itemCount: snapshot.data!.length,
+                            mainAxisSpacing: 10.0,
+                            crossAxisSpacing: 10.0,
+                            shrinkWrap: true,
+                            crossAxisCount:
+                                MediaQuery.of(context).size.width > 800 ? 4 : 1,
+                            itemBuilder: (context, index) {
+                              return ResourceCard(
+                                  resource: snapshot.data![index] as Resource);
+                            }),
                       );
                     } else if (snapshot.hasError) {
                       // TODO: Error handling

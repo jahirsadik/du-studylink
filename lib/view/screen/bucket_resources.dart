@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:salvare/controller/bucket_controller.dart';
 import 'package:salvare/database/firestore_db.dart';
@@ -169,18 +170,23 @@ class _BucketResourcesState extends State<BucketResources> {
                     debugPrint("Firebase resource stream successfull");
                     var resources =
                         snapshot.data!.docs.map((e) => e.data()).toList();
-                    return ListView.builder(
-                        itemCount: resources.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: cardListEdgeInsets,
-                            child: ResourceCard(
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      child: AlignedGridView.count(
+                          itemCount: resources.length,
+                          mainAxisSpacing: 10.0,
+                          crossAxisSpacing: 10.0,
+                          shrinkWrap: true,
+                          crossAxisCount:
+                              MediaQuery.of(context).size.width > 800 ? 4 : 1,
+                          itemBuilder: (context, index) {
+                            return ResourceCard(
                               resource: resources[index] as Resource,
                               isBucketResource: true,
                               bucket: widget.bucket,
-                            ),
-                          );
-                        });
+                            );
+                          }),
+                    );
                   } catch (err) {
                     return Text(
                         "Error Occured while fetching bucket resources $err");
