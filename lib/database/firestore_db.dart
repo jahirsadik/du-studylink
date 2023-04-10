@@ -565,6 +565,7 @@ class FireStoreDB {
   Future<double> findAverageResourceRatingDB(
       String bucketId, Resource resource) async {
     double newRating = 0.0;
+    int userCount = 0;
 
     try {
       final bucketInstanceRef = FirebaseFirestore.instance
@@ -596,11 +597,12 @@ class FireStoreDB {
               await resourceRef.get();
           Resource? _resource =
               _resourceSnapshot.exists ? _resourceSnapshot.data() : null;
-          if (_resource != null) {
+          if (_resource != null && _resource.rating != 0.0) {
             newRating += _resource.rating;
+            userCount++;
           }
         }
-        return newRating / _bucket.users.length;
+        return newRating / userCount;
       } else {
         debugPrint(
             "No bucket exists with bucketID: $bucketId in findRating DB");
