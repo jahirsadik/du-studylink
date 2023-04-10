@@ -19,21 +19,28 @@ class Resource {
     return Uri.parse(url).host.toLowerCase();
   }
 
+  int rating = 0;
   String description;
   String category;
   List<Tag>? tags;
   DateTime dateCreated;
   DateTime dateUpdated;
 
-  Resource(this.id, this.title, this.url, this.category, this.tags,
+  Resource(this.id, this.title, this.url, this.category, this.rating, this.tags,
       this.description, this.dateCreated, this.dateUpdated, this.imageUrl);
 
   Resource.unlaunched(String id, String title, String url, String category)
-      : this(id, title, url, category, null, 'No description.', DateTime.now(),
-            DateTime.now(), null);
+      : this(id, title, url, category, 0, null, 'No description.',
+            DateTime.now(), DateTime.now(), null);
+
+  // TODO: add unlaunched initializer with ratings
 
   void addTag(Tag _tag) {
     tags != null ? tags!.add(_tag) : tags = List<Tag>.from([_tag]);
+  }
+
+  void changeRating(int _to) {
+    rating = _to;
   }
 
   void changeCategory(String _to) {
@@ -57,6 +64,7 @@ class Resource {
         'Untitled',
         url,
         category,
+        0,
         tags,
         'No Description',
         dateCreated,
@@ -73,6 +81,7 @@ class Resource {
         metadata.title ?? 'Untitled',
         url,
         'default',
+        0,
         null,
         metadata.description ?? 'No description.',
         dateCreated,

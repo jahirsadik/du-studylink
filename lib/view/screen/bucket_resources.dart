@@ -182,7 +182,8 @@ class _BucketResourcesState extends State<BucketResources> {
                           );
                         });
                   } catch (err) {
-                    return Text("Error Occured while fetching resource $err");
+                    return Text(
+                        "Error Occured while fetching bucket resources $err");
                   }
                 } else {
                   return const Center(child: CircularProgressIndicator());

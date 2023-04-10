@@ -11,6 +11,7 @@ Resource _$ResourceFromJson(Map<String, dynamic> json) => Resource(
       json['title'] as String,
       json['url'] as String,
       json['category'] as String,
+      json['rating'] == null ? 0 : json['rating'] as int,
       (json['tags'] as List<dynamic>?)
           ?.map((e) => Tag.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -27,6 +28,7 @@ Map<String, dynamic> _$ResourceToJson(Resource instance) => <String, dynamic>{
       'imageUrl': instance.imageUrl,
       'description': instance.description,
       'category': instance.category,
+      'rating': instance.rating,
       'tags': instance.tags != null
           ? instance.tags!.map((e) => e.toJson()).toList()
           : instance.tags,
