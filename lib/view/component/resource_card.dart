@@ -21,6 +21,7 @@ class ResourceCard extends StatelessWidget {
   final bool isBucketResource;
   final Bucket? bucket;
   final ResourceController resourceController = ResourceController();
+  final BucketController bucketController = BucketController();
 
   ResourceCard(
       {Key? key,
@@ -202,11 +203,11 @@ class ResourceCard extends StatelessWidget {
                             height: 5.0,
                           ),
                           RatingBar.builder(
-                            initialRating: resource.rating.toDouble(),
+                            initialRating: resource.rating,
                             unratedColor: Theme.of(context).focusColor,
-                            minRating: 0,
+                            minRating: 0.0,
                             direction: Axis.horizontal,
-                            allowHalfRating: false,
+                            allowHalfRating: true,
                             itemSize: 20,
                             itemCount: 5,
                             itemPadding:
@@ -216,8 +217,21 @@ class ResourceCard extends StatelessWidget {
                               color: Theme.of(context).primaryColor,
                             ),
                             onRatingUpdate: (rating) {
-                              resource.changeRating(rating.toInt());
-                              resourceController.editResource(resource);
+                              if (isBucketResource) {
+                                int tempLength = (bucket != null)
+                                    ? bucket!.users.length.toInt()
+                                    : 1;
+                                double newRating = resource.rating +
+                                    (rating - resource.rating) / tempLength;
+                                resource.changeRating(newRating);
+                                if (bucket != null) {
+                                  bucketController.editBucketResource(
+                                      bucket!, resource);
+                                }
+                              } else {
+                                resource.changeRating(rating);
+                                resourceController.editResource(resource);
+                              }
                             },
                           ),
                         ],

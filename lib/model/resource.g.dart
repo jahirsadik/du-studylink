@@ -11,7 +11,7 @@ Resource _$ResourceFromJson(Map<String, dynamic> json) => Resource(
       json['title'] as String,
       json['url'] as String,
       json['category'] as String,
-      json['rating'] == null ? 0 : json['rating'] as int,
+      json['rating'] == null ? 0.0 : json['rating'] as double,
       (json['tags'] as List<dynamic>?)
           ?.map((e) => Tag.fromJson(e as Map<String, dynamic>))
           .toList(),

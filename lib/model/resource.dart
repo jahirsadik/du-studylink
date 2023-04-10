@@ -19,7 +19,7 @@ class Resource {
     return Uri.parse(url).host.toLowerCase();
   }
 
-  int rating = 0;
+  double rating = 0.0;
   String description;
   String category;
   List<Tag>? tags;
@@ -30,7 +30,7 @@ class Resource {
       this.description, this.dateCreated, this.dateUpdated, this.imageUrl);
 
   Resource.unlaunched(String id, String title, String url, String category)
-      : this(id, title, url, category, 0, null, 'No description.',
+      : this(id, title, url, category, 0.0, null, 'No description.',
             DateTime.now(), DateTime.now(), null);
 
   // TODO: add unlaunched initializer with ratings
@@ -39,7 +39,7 @@ class Resource {
     tags != null ? tags!.add(_tag) : tags = List<Tag>.from([_tag]);
   }
 
-  void changeRating(int _to) {
+  void changeRating(double _to) {
     rating = _to;
   }
 
