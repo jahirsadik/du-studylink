@@ -202,38 +202,48 @@ class ResourceCard extends StatelessWidget {
                           const SizedBox(
                             height: 5.0,
                           ),
-                          RatingBar.builder(
-                            initialRating: resource.rating,
-                            unratedColor: Theme.of(context).focusColor,
-                            minRating: 0.0,
-                            direction: Axis.horizontal,
-                            allowHalfRating: true,
-                            itemSize: 20,
-                            itemCount: 5,
-                            itemPadding:
-                                const EdgeInsets.symmetric(horizontal: 1.0),
-                            itemBuilder: (context, index) => Icon(
-                              Icons.star,
-                              color: Theme.of(context).primaryColor,
-                            ),
-                            onRatingUpdate: (rating) {
-                              if (isBucketResource) {
-                                int tempLength = (bucket != null)
-                                    ? bucket!.users.length.toInt()
-                                    : 1;
-                                double newRating = resource.rating +
-                                    (rating - resource.rating) / tempLength;
-                                resource.changeRating(newRating);
-                                if (bucket != null) {
-                                  bucketController.editBucketResource(
-                                      bucket!, resource);
+                          FutureBuilder<double>(
+                              future: findRating(
+                                  isBucketResource, resource, bucket),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  return RatingBar.builder(
+                                    initialRating: snapshot.data!,
+                                    unratedColor: Theme.of(context).focusColor,
+                                    minRating: 0.0,
+                                    direction: Axis.horizontal,
+                                    allowHalfRating: true,
+                                    itemSize: 20,
+                                    itemCount: 5,
+                                    itemPadding: const EdgeInsets.symmetric(
+                                        horizontal: 1.0),
+                                    itemBuilder: (context, index) => Icon(
+                                      Icons.star,
+                                      color: Theme.of(context).primaryColor,
+                                    ),
+                                    onRatingUpdate: (rating) {
+                                      if (isBucketResource) {
+                                        resource.changeRating(rating);
+                                        if (bucket != null) {
+                                          bucketController
+                                              .editBucketResourceForOneUser(
+                                                  bucket!, resource);
+                                        }
+                                      } else {
+                                        resource.changeRating(rating);
+                                        resourceController
+                                            .editResource(resource);
+                                      }
+                                    },
+                                  );
+                                } else if (snapshot.hasError) {
+                                  // TODO: Error handling
+                                  return Text('${snapshot.error}');
+                                } else {
+                                  // TODO: Progress indicator
+                                  return const Text('Loading...');
                                 }
-                              } else {
-                                resource.changeRating(rating);
-                                resourceController.editResource(resource);
-                              }
-                            },
-                          ),
+                              }),
                         ],
                       ),
                     ),
@@ -245,6 +255,19 @@ class ResourceCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<double> findRating(
+      bool isBucketResource, Resource resource, Bucket? bucket) async {
+    if (isBucketResource && bucket != null) {
+      double newRating = 0.0;
+      newRating =
+          await bucketController.findAverageResourceRating(bucket, resource);
+      print("Hello");
+      return newRating;
+    } else {
+      return resource.rating;
+    }
   }
 
   void copyLink(BuildContext context) {

@@ -66,7 +66,7 @@ Future<Object?> showResourceForm({
                                 }
                               else if (isEdit && isBucketResource)
                                 {
-                                  bucketController.editBucketResource(
+                                  bucketController.editBucketResourceForOneUser(
                                       bucket!, _resource!),
                                 }
                             },

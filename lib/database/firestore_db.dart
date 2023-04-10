@@ -562,6 +562,96 @@ class FireStoreDB {
     }
   }
 
+  Future<double> findAverageResourceRatingDB(
+      String bucketId, Resource resource) async {
+    double newRating = 0.0;
+
+    try {
+      final bucketInstanceRef = FirebaseFirestore.instance
+          .collection(FirebaseAuth.instance.currentUser!.uid)
+          .doc(DatabasePaths.userBucketList)
+          .collection(DatabasePaths.userBucketListBucket)
+          .doc(bucketId)
+          .withConverter<Bucket>(
+            fromFirestore: (snapshot, _) => Bucket.fromJson(snapshot.data()!),
+            toFirestore: (_bucket, _) => _bucket.toJson(),
+          );
+      DocumentSnapshot<Bucket> _bucketSnapshot = await bucketInstanceRef.get();
+      Bucket? _bucket = _bucketSnapshot.exists ? _bucketSnapshot.data() : null;
+      if (_bucket != null) {
+        for (var element in _bucket.users) {
+          var resourceRef = FirebaseFirestore.instance
+              .collection(element)
+              .doc(DatabasePaths.userBucketList)
+              .collection(DatabasePaths.userBucketListBucket)
+              .doc(bucketId)
+              .collection(DatabasePaths.userBucketListBucketResource)
+              .doc(resource.id)
+              .withConverter<Resource>(
+                fromFirestore: (snapshot, _) =>
+                    Resource.fromJson(snapshot.data()!),
+                toFirestore: (_resource, _) => _resource.toJson(),
+              );
+          DocumentSnapshot<Resource> _resourceSnapshot =
+              await resourceRef.get();
+          Resource? _resource =
+              _resourceSnapshot.exists ? _resourceSnapshot.data() : null;
+          if (_resource != null) {
+            newRating += _resource.rating;
+          }
+        }
+        return newRating / _bucket.users.length;
+      } else {
+        debugPrint(
+            "No bucket exists with bucketID: $bucketId in findRating DB");
+      }
+    } catch (e) {
+      debugPrint("Error in find rating DB {$e}");
+    }
+    return newRating;
+  }
+
+  void editBucketResourceForOneUserDB(
+      String bucketId, Resource resource) async {
+    try {
+      final bucketInstanceRef = FirebaseFirestore.instance
+          .collection(FirebaseAuth.instance.currentUser!.uid)
+          .doc(DatabasePaths.userBucketList)
+          .collection(DatabasePaths.userBucketListBucket)
+          .doc(bucketId)
+          .withConverter<Bucket>(
+            fromFirestore: (snapshot, _) => Bucket.fromJson(snapshot.data()!),
+            toFirestore: (_bucket, _) => _bucket.toJson(),
+          );
+      DocumentSnapshot<Bucket> _bucketSnapshot = await bucketInstanceRef.get();
+      Bucket? _bucket = _bucketSnapshot.exists ? _bucketSnapshot.data() : null;
+      if (_bucket != null) {
+        String element = FirebaseAuth.instance.currentUser!.uid;
+        FirebaseFirestore.instance
+            .collection(element)
+            .doc(DatabasePaths.userBucketList)
+            .collection(DatabasePaths.userBucketListBucket)
+            .doc(bucketId)
+            .collection(DatabasePaths.userBucketListBucketResource)
+            .doc(resource.id)
+            .withConverter<Resource>(
+              fromFirestore: (snapshot, _) =>
+                  Resource.fromJson(snapshot.data()!),
+              toFirestore: (_resource, _) => _resource.toJson(),
+            )
+            .set(resource, SetOptions(merge: true))
+            .then((value) => debugPrint(
+                "Resource(${resource.id}) has been edited to user($element)"))
+            .catchError((onError) => debugPrint(
+                "Resource(${resource.id}) CANNOT be edited to user($element)"));
+      } else {
+        debugPrint("No bucket exists with bucketID: $bucketId");
+      }
+    } catch (e) {
+      debugPrint("Error in edit resource to bucket DB {$e}");
+    }
+  }
+
   void editBucketNameDB(String bucketId, String name) async {
     try {
       final bucketInstanceRef = FirebaseFirestore.instance

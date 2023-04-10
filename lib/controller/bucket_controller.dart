@@ -91,6 +91,13 @@ class BucketController {
   void editBucketResource(Bucket bucket, Resource resource) =>
       FireStoreDB().editBucketResourceDB(bucket.id, resource);
 
+  Future<double> findAverageResourceRating(
+          Bucket bucket, Resource resource) async =>
+      await FireStoreDB().findAverageResourceRatingDB(bucket.id, resource);
+
+  void editBucketResourceForOneUser(Bucket bucket, Resource resource) =>
+      FireStoreDB().editBucketResourceForOneUserDB(bucket.id, resource);
+
   void deleteBucketResource(Bucket bucket, Resource resource) {
     try {
       FireStoreDB().deleteResourceFromBucket(bucket, resource);
