@@ -82,7 +82,7 @@ Widget loginScreen(BuildContext context) {
             children: [
               const SizedBox(height: 50),
               Text(
-                'Welcome to Salvare!',
+                'Welcome to DUStudyLink!',
                 style: Theme.of(context).textTheme.headline2!.apply(
                       color: Colors.white,
                       fontSizeFactor: MediaQuery.of(context).size.width / 1200,
@@ -120,7 +120,7 @@ Widget loginScreen(BuildContext context) {
           ),
           const SizedBox(height: 20),
           Text(
-            'Welcome to Salvare!',
+            'Welcome to DUStudyLink!',
             style: Theme.of(context)
                 .textTheme
                 .headline2!

@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:salvare/controller/bucket_controller.dart';
 import 'package:salvare/controller/resource_controller.dart';
 import 'package:salvare/model/bucket.dart';
@@ -202,71 +203,74 @@ class ResourceCard extends StatelessWidget {
                           const SizedBox(
                             height: 5.0,
                           ),
-                          FutureBuilder<double>(
-                              future: findRating(
-                                  isBucketResource, resource, bucket),
-                              builder: (context, snapshot) {
-                                if (snapshot.hasData) {
-                                  return Row(
-                                    children: [
-                                      RatingBar.builder(
-                                        initialRating: resource.rating,
-                                        unratedColor:
-                                            Theme.of(context).focusColor,
-                                        minRating: 0.0,
-                                        direction: Axis.horizontal,
-                                        allowHalfRating: true,
-                                        itemSize: 20,
-                                        itemCount: 5,
-                                        itemPadding: const EdgeInsets.symmetric(
-                                            horizontal: 1.0),
-                                        itemBuilder: (context, index) => Icon(
-                                          Icons.star,
-                                          color: Theme.of(context).primaryColor,
-                                        ),
-                                        onRatingUpdate: (rating) async {
-                                          if (isBucketResource) {
-                                            resource.changeRating(rating);
-                                            if (bucket != null) {
-                                              bucketController
-                                                  .editBucketResourceForOneUser(
-                                                      bucket!, resource);
-                                            }
-                                            rating = await findRating(
-                                                isBucketResource,
-                                                resource,
-                                                bucket);
-                                          } else {
-                                            resource.changeRating(rating);
-                                            resourceController
-                                                .editResource(resource);
-                                          }
-                                        },
-                                      ),
-                                      const SizedBox(
-                                        width: 10.0,
-                                      ),
-                                      isBucketResource
-                                          ? Text(
-                                              "Avg. Rating: ${snapshot.data!.toStringAsFixed(1)}",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText1,
-                                            )
-                                          : const SizedBox.shrink()
-                                    ],
-                                  );
-                                } else if (snapshot.hasError) {
-                                  // TODO: Error handling
-                                  return Text('${snapshot.error}');
-                                } else {
-                                  // TODO: Progress indicator
-                                  return const Text('Loading...');
+                          RatingBar.builder(
+                            initialRating: resource.rating,
+                            unratedColor: Theme.of(context).focusColor,
+                            minRating: 0.0,
+                            direction: Axis.horizontal,
+                            allowHalfRating: false,
+                            itemSize: 20,
+                            itemCount: 5,
+                            itemPadding:
+                                const EdgeInsets.symmetric(horizontal: 1.0),
+                            itemBuilder: (context, index) => Icon(
+                              Icons.star,
+                              color: Theme.of(context).primaryColor,
+                            ),
+                            onRatingUpdate: (rating) async {
+                              if (isBucketResource) {
+                                resource.changeRating(rating);
+                                if (bucket != null) {
+                                  bucketController.editBucketResourceForOneUser(
+                                      bucket!, resource);
                                 }
-                              }),
+                                rating = await findRating(
+                                    isBucketResource, resource, bucket);
+                              } else {
+                                resource.changeRating(rating);
+                                resourceController.editResource(resource);
+                              }
+                            },
+                          ),
                         ],
                       ),
                     ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: FutureBuilder<double>(
+                          future:
+                              findRating(isBucketResource, resource, bucket),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              return isBucketResource
+                                  ? Column(
+                                      children: [
+                                        Text(
+                                          'AVG',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .subtitle1,
+                                        ),
+                                        Text(
+                                          snapshot.data!.toStringAsFixed(1),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline4,
+                                        ),
+                                      ],
+                                    )
+                                  : const SizedBox.shrink();
+                            } else if (snapshot.hasError) {
+                              // TODO: Error handling
+                              return Text('${snapshot.error}');
+                            } else {
+                              // TODO: Progress indicator
+                              return SpinKitFadingFour(
+                                  size: 25.0,
+                                  color: Theme.of(context).primaryColor);
+                            }
+                          }),
+                    )
                   ],
                 ),
               ),

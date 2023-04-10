@@ -33,7 +33,7 @@ class Salvare extends StatelessWidget {
         valueListenable: notifier,
         builder: (_, theme, __) {
           return MaterialApp(
-            title: 'Salvare',
+            title: 'DUStudyLink',
             theme: theme,
             darkTheme: DynamicColorTheme.getInstance().darkTheme(),
             themeMode: ThemeMode.light,

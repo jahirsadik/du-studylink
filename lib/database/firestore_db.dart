@@ -602,6 +602,9 @@ class FireStoreDB {
             userCount++;
           }
         }
+        if (userCount == 0) {
+          return 0;
+        }
         return newRating / userCount;
       } else {
         debugPrint(
