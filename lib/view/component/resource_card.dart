@@ -11,6 +11,7 @@ import 'package:salvare/view/component/resource_form.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:salvare/theme/constants.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 final ResourceController resourceController = ResourceController();
 final BucketController bucketController = BucketController();
@@ -19,6 +20,7 @@ class ResourceCard extends StatelessWidget {
   final Resource resource;
   final bool isBucketResource;
   final Bucket? bucket;
+  final ResourceController resourceController = ResourceController();
 
   ResourceCard(
       {Key? key,
@@ -196,6 +198,27 @@ class ResourceCard extends StatelessWidget {
                                   .domainText
                                   .apply(
                                       color: Theme.of(context).disabledColor)),
+                          const SizedBox(
+                            height: 5.0,
+                          ),
+                          RatingBar.builder(
+                            initialRating: resource.rating.toDouble(),
+                            minRating: 0,
+                            direction: Axis.horizontal,
+                            allowHalfRating: false,
+                            itemSize: 20,
+                            itemCount: 5,
+                            itemPadding:
+                                const EdgeInsets.symmetric(horizontal: 1.0),
+                            itemBuilder: (context, index) => const Icon(
+                              Icons.star,
+                              color: Colors.yellow,
+                            ),
+                            onRatingUpdate: (rating) {
+                              resource.changeRating(rating.toInt());
+                              resourceController.editResource(resource);
+                            },
+                          ),
                         ],
                       ),
                     ),

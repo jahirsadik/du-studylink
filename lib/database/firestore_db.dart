@@ -130,6 +130,7 @@ class FireStoreDB {
           .collection(FirebaseAuth.instance.currentUser!.uid)
           .doc(DatabasePaths.userResourceList)
           .collection(DatabasePaths.userResourceListResource)
+          .orderBy('rating', descending: true)
           .withConverter<Resource>(
             fromFirestore: (snapshot, _) => Resource.fromJson(snapshot.data()!),
             toFirestore: (_resource, _) => _resource.toJson(),
@@ -471,7 +472,7 @@ class FireStoreDB {
         .collection(DatabasePaths.userBucketListBucket)
         .doc(bucket.id)
         .collection(DatabasePaths.userBucketListBucketResource)
-        .orderBy('dateCreated', descending: true)
+        .orderBy('rating', descending: true)
         .withConverter<Resource>(
           fromFirestore: (snapshot, _) => Resource.fromJson(snapshot.data()!),
           toFirestore: (_resource, _) => _resource.toJson(),
@@ -637,6 +638,7 @@ class FireStoreDB {
           .collection(DatabasePaths.userBucketListBucket)
           .doc(bucketID)
           .collection(DatabasePaths.userBucketListBucketResource)
+          .orderBy('rating', descending: true)
           .withConverter<Resource>(
             fromFirestore: (snapshot, _) => Resource.fromJson(snapshot.data()!),
             toFirestore: (_resource, _) => _resource.toJson(),
@@ -749,7 +751,7 @@ class FireStoreDB {
         .collection(FirebaseAuth.instance.currentUser!.uid)
         .doc(DatabasePaths.userResourceList)
         .collection(DatabasePaths.userResourceListResource)
-        .orderBy('dateCreated', descending: true)
+        .orderBy('rating', descending: true)
         .withConverter<Resource>(
           fromFirestore: (snapshot, _) => Resource.fromJson(snapshot.data()!),
           toFirestore: (_resource, _) => _resource.toJson(),
