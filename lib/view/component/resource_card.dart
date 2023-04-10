@@ -243,7 +243,7 @@ class ResourceCard extends StatelessWidget {
                                         width: 5.0,
                                       ),
                                       Text(
-                                        snapshot.data!.toStringAsFixed(2),
+                                        "Average Rating: ${snapshot.data!.toStringAsFixed(2)}",
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyText1,
