@@ -1,5 +1,5 @@
 import 'dart:ui';
-
+import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
@@ -36,7 +36,9 @@ class ResourceCard extends StatelessWidget {
   }
 
   ImageProvider<Object> fetchImage(imageURL) {
-    var noImg = const AssetImage('assets/no_img.jpg');
+    var rng = Random();
+    String imagePath = 'assets/no_img${rng.nextInt(10)}.png';
+    var noImg = AssetImage(imagePath);
     if (imageURL != null) {
       try {
         // return CachedNetworkImageProvider(
@@ -143,8 +145,10 @@ class ResourceCard extends StatelessWidget {
                       image: fetchImage(resource.imageUrl),
                       fit: BoxFit.cover,
                       imageErrorBuilder: (context, error, stackTrace) {
-                        return Image.asset('assets/no_img.jpg',
-                            fit: BoxFit.cover);
+                        var rng = Random();
+                        String imagePath =
+                            'assets/no_img${rng.nextInt(10)}.png';
+                        return Image.asset(imagePath, fit: BoxFit.cover);
                       },
                     ),
                   ),

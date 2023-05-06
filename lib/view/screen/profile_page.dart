@@ -147,7 +147,7 @@ class _ProfilePageState extends State<ProfilePage> {
         children: [
           Text(
             'About',
-            style: Theme.of(context).textTheme.headlineMedium,
+            style: Theme.of(context).textTheme.headline4,
           ),
           const SizedBox(height: 16),
           Text(
@@ -197,7 +197,7 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           Text(
             'Account'.toUpperCase(),
-            style: Theme.of(context).textTheme.titleLarge,
+            style: Theme.of(context).textTheme.statLabel,
           ),
           Text(
             'Age'.toUpperCase(),
