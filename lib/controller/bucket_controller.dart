@@ -91,7 +91,7 @@ class BucketController {
   void editBucketResource(Bucket bucket, Resource resource) =>
       FireStoreDB().editBucketResourceDB(bucket.id, resource);
 
-  Future<double> findAverageResourceRating(
+  Future<List> findAverageResourceRating(
           Bucket bucket, Resource resource) async =>
       await FireStoreDB().findAverageResourceRatingDB(bucket.id, resource);
 

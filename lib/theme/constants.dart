@@ -194,6 +194,12 @@ TextTheme textTheme = const TextTheme(
   subtitle1: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w400),
 ).fixFontFamily();
 
+Color? dynamicTextColor = DynamicColorTheme.getInstance()
+    .dayNightTheme()
+    .textTheme
+    .headlineMedium
+    ?.color;
+
 class RandomPatternGenerator extends CustomPainter {
   final Random random = Random();
   final PatternType pattern =
@@ -247,7 +253,13 @@ extension CustomStyles on TextTheme {
   }
 
   TextStyle get statLabel {
-    return textTheme.headline6!.copyWith(letterSpacing: 2.0);
+    return textTheme.headline6!.copyWith(
+        letterSpacing: 2.0,
+        color: DynamicColorTheme.getInstance()
+            .dayNightTheme()
+            .textTheme
+            .headlineMedium
+            ?.color);
   }
 
   TextStyle get buttonText {

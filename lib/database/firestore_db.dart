@@ -562,7 +562,7 @@ class FireStoreDB {
     }
   }
 
-  Future<double> findAverageResourceRatingDB(
+  Future<List> findAverageResourceRatingDB(
       String bucketId, Resource resource) async {
     double newRating = 0.0;
     int userCount = 0;
@@ -603,9 +603,9 @@ class FireStoreDB {
           }
         }
         if (userCount == 0) {
-          return 0;
+          return [0, 0];
         }
-        return newRating / userCount;
+        return [newRating / userCount, userCount];
       } else {
         debugPrint(
             "No bucket exists with bucketID: $bucketId in findRating DB");
@@ -613,7 +613,7 @@ class FireStoreDB {
     } catch (e) {
       debugPrint("Error in find rating DB {$e}");
     }
-    return newRating;
+    return [0, 0];
   }
 
   void editBucketResourceForOneUserDB(
@@ -790,7 +790,6 @@ class FireStoreDB {
           .collection(FirebaseAuth.instance.currentUser!.uid)
           .doc(DatabasePaths.userResourceList)
           .collection(DatabasePaths.userResourceListResource)
-          .orderBy('rating', descending: true)
           .withConverter<Resource>(
             fromFirestore: (snapshot, _) => Resource.fromJson(snapshot.data()!),
             toFirestore: (_resource, _) => _resource.toJson(),
@@ -799,7 +798,6 @@ class FireStoreDB {
           .where('category', isGreaterThanOrEqualTo: category)
           .where('category', isLessThan: category + 'z')
           .get();
-      //debugPrint("Search disi $category.... paisi:${lst.first}");
       return res.docs.map((e) => e.data()).toList();
     } catch (e) {
       debugPrint("Error in searchResourceUsingCategoryDB {$e}");
@@ -861,7 +859,6 @@ class FireStoreDB {
           .collection(FirebaseAuth.instance.currentUser!.uid)
           .doc(DatabasePaths.userResourceList)
           .collection(DatabasePaths.userResourceListResource)
-          .orderBy('rating', descending: true)
           .withConverter<Resource>(
             fromFirestore: (snapshot, _) => Resource.fromJson(snapshot.data()!),
             toFirestore: (_resource, _) => _resource.toJson(),

@@ -13,6 +13,7 @@ import 'package:transparent_image/transparent_image.dart';
 import 'package:salvare/theme/constants.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:cached_network_image_platform_interface/cached_network_image_platform_interface.dart';
 
 final ResourceController resourceController = ResourceController();
 final BucketController bucketController = BucketController();
@@ -38,7 +39,11 @@ class ResourceCard extends StatelessWidget {
     var noImg = const AssetImage('assets/no_img.jpg');
     if (imageURL != null) {
       try {
-        return CachedNetworkImageProvider(resource.imageUrl!);
+        // return CachedNetworkImageProvider(
+        //     'https://web-production-ef94.up.railway.app/${resource.imageUrl!}',
+        //     imageRenderMethodForWeb: ImageRenderMethodForWeb.HttpGet);
+        return NetworkImage(
+            'https://web-production-ef94.up.railway.app/' + imageURL);
       } catch (e) {
         return noImg;
       }
@@ -224,8 +229,9 @@ class ResourceCard extends StatelessWidget {
                                   bucketController.editBucketResourceForOneUser(
                                       bucket!, resource);
                                 }
-                                rating = await findRating(
+                                List ratingInfo = await findRating(
                                     isBucketResource, resource, bucket);
+                                rating = ratingInfo[0];
                               } else {
                                 resource.changeRating(rating);
                                 resourceController.editResource(resource);
@@ -237,7 +243,7 @@ class ResourceCard extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: FutureBuilder<double>(
+                      child: FutureBuilder<List>(
                           future:
                               findRating(isBucketResource, resource, bucket),
                           builder: (context, snapshot) {
@@ -246,16 +252,31 @@ class ResourceCard extends StatelessWidget {
                                   ? Column(
                                       children: [
                                         Text(
-                                          'AVG',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .subtitle1,
-                                        ),
-                                        Text(
-                                          snapshot.data!.toStringAsFixed(1),
+                                          snapshot.data![0].toStringAsFixed(1),
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline4,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Icon(
+                                              FeatherIcons.user,
+                                              size: 14.0,
+                                              color: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText1
+                                                  ?.color,
+                                            ),
+                                            const SizedBox(
+                                              width: 3.0,
+                                            ),
+                                            Text(
+                                              snapshot.data![1].toString(),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .subtitle1,
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     )
@@ -281,16 +302,15 @@ class ResourceCard extends StatelessWidget {
     );
   }
 
-  Future<double> findRating(
+  Future<List> findRating(
       bool isBucketResource, Resource resource, Bucket? bucket) async {
     if (isBucketResource && bucket != null) {
-      double newRating = 0.0;
-      newRating =
+      List ratingInfo;
+      ratingInfo =
           await bucketController.findAverageResourceRating(bucket, resource);
-      print("Hello");
-      return newRating;
+      return ratingInfo;
     } else {
-      return resource.rating;
+      return [resource.rating, resource.userCount];
     }
   }
 

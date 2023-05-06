@@ -20,6 +20,7 @@ class Resource {
   }
 
   double rating = 0.0;
+  int userCount = 0;
   String description;
   String category;
   List<Tag>? tags;

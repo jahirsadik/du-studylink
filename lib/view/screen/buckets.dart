@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:salvare/controller/bucket_controller.dart';
 import 'package:salvare/database/firestore_db.dart';
+import 'package:salvare/main.dart';
 import 'package:salvare/model/bucket.dart';
 import 'package:salvare/theme/constants.dart';
 
@@ -96,11 +97,16 @@ class _BucketsState extends State<Buckets> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        floatingActionButton: FloatingActionButton(
-          foregroundColor: Colors.white,
-          heroTag: 'bucketBtn',
-          child: const Icon(FeatherIcons.plus),
-          onPressed: () => showBucketDialogue(context: context),
+        floatingActionButton: ValueListenableBuilder<ThemeData>(
+          valueListenable: Salvare.notifier,
+          builder: (context, theme, _) {
+            return FloatingActionButton(
+              foregroundColor: Colors.white,
+              heroTag: 'bucketBtn',
+              child: const Icon(FeatherIcons.plus),
+              onPressed: () => showBucketDialogue(context: context),
+            );
+          },
         ),
         body: StreamBuilder<QuerySnapshot<Bucket>>(
           stream: FireStoreDB().getUserBucketStream(),
@@ -112,102 +118,108 @@ class _BucketsState extends State<Buckets> {
               try {
                 debugPrint("Firebase resource stream successfull");
                 var buckets = snapshot.data!.docs.map((e) => e.data()).toList();
-                return ListView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: buckets.length + 1,
-                    itemBuilder: (context, index) {
-                      if (index == 0) {
-                        return Padding(
-                          padding: globalEdgeInsets,
-                          child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                const SizedBox(height: 100.0),
-                                Text(
-                                  "Buckets",
-                                  style: Theme.of(context).textTheme.headline1,
-                                ),
-                                const SizedBox(height: 40.0),
-                              ]),
-                        );
-                      }
-                      return InkWell(
-                        child: ListTile(
-                          onLongPress: () => showModalBottomSheet<void>(
-                            context: context,
-                            builder: (context) {
-                              return Padding(
-                                padding: const EdgeInsets.all(20.0),
-                                child: Column(
+                return ValueListenableBuilder<ThemeData>(
+                  valueListenable: Salvare.notifier,
+                  builder: (context, theme, _) {
+                    return ListView.builder(
+                        physics: const BouncingScrollPhysics(),
+                        itemCount: buckets.length + 1,
+                        itemBuilder: (context, index) {
+                          if (index == 0) {
+                            return Padding(
+                              padding: globalEdgeInsets,
+                              child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  mainAxisSize: MainAxisSize.min,
                                   children: <Widget>[
-                                    ListTile(
-                                        onTap: () => showBucketDialogue(
-                                            context: context,
-                                            isEdit: true,
-                                            bucket: buckets[index - 1]),
-                                        leading: Icon(
-                                          FeatherIcons.edit3,
-                                          color: Theme.of(context)
-                                              .textTheme
-                                              .bodyText1
-                                              ?.color,
-                                        ),
-                                        title: Text(
-                                          'Edit Bucket',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText1,
-                                        )),
-                                    ListTile(
-                                        onTap: () async {
-                                          showBucketDeleteAlert(
-                                              context, buckets[index - 1]);
-                                        },
-                                        leading: const Icon(
-                                          FeatherIcons.delete,
-                                          color: Colors.red,
-                                        ),
-                                        title: Text(
-                                          'Delete Bucket',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText1
-                                              ?.apply(
-                                                color: Colors.red,
-                                              ),
-                                        )),
-                                  ],
+                                    const SizedBox(height: 100.0),
+                                    Text(
+                                      "Buckets",
+                                      style: theme.textTheme.headline1,
+                                    ),
+                                    const SizedBox(height: 40.0),
+                                  ]),
+                            );
+                          }
+                          return InkWell(
+                            child: ListTile(
+                              onLongPress: () => showModalBottomSheet<void>(
+                                context: context,
+                                builder: (context) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(20.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: <Widget>[
+                                        ListTile(
+                                            onTap: () => showBucketDialogue(
+                                                context: context,
+                                                isEdit: true,
+                                                bucket: buckets[index - 1]),
+                                            leading: Icon(
+                                              FeatherIcons.edit3,
+                                              color: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText1
+                                                  ?.color,
+                                            ),
+                                            title: Text(
+                                              'Edit Bucket',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText1,
+                                            )),
+                                        ListTile(
+                                            onTap: () async {
+                                              showBucketDeleteAlert(
+                                                  context, buckets[index - 1]);
+                                            },
+                                            leading: const Icon(
+                                              FeatherIcons.delete,
+                                              color: Colors.red,
+                                            ),
+                                            title: Text(
+                                              'Delete Bucket',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText1
+                                                  ?.apply(
+                                                    color: Colors.red,
+                                                  ),
+                                            )),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              ),
+                              onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => BucketResources(
+                                          bucket: buckets[index - 1]))),
+                              leading: SizedBox(
+                                height: double.infinity,
+                                child: Icon(
+                                  FeatherIcons.shoppingBag,
+                                  color: Theme.of(context).primaryColor,
                                 ),
-                              );
-                            },
-                          ),
-                          onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => BucketResources(
-                                      bucket: buckets[index - 1]))),
-                          leading: SizedBox(
-                            height: double.infinity,
-                            child: Icon(
-                              FeatherIcons.shoppingBag,
-                              color: Theme.of(context).primaryColor,
+                              ),
+                              title: Text(
+                                buckets[index - 1].name,
+                                style: theme.textTheme.headline6,
+                              ),
+                              subtitle: Text(
+                                '${buckets[index - 1].users.length} user(s)',
+                                style: theme.textTheme.bodyText1,
+                              ),
                             ),
-                          ),
-                          title: Text(
-                            buckets[index - 1].name,
-                            style: Theme.of(context).textTheme.headline6,
-                          ),
-                          subtitle: Text(
-                            '${buckets[index - 1].users.length} user(s)',
-                            style: Theme.of(context).textTheme.bodyText1,
-                          ),
-                        ),
-                      );
-                    });
+                          );
+                        });
+                  },
+                );
               } catch (err) {
                 return Text(
                     "Error Occured while fetching bucket resource $err");
