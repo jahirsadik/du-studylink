@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:salvare/view/screen/dashboard.dart';
-import 'package:salvare/view/screen/search.dart';
-import 'package:salvare/view/screen/buckets.dart';
+import 'package:dustudylink/view/screen/dashboard.dart';
+import 'package:dustudylink/view/screen/search.dart';
+import 'package:dustudylink/view/screen/buckets.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:salvare/theme/constants.dart';
-import 'package:salvare/view/screen/sign_in_screen.dart';
+import 'package:dustudylink/theme/constants.dart';
+import 'package:dustudylink/view/screen/sign_in_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await DynamicColorTheme.create();
-  runApp(Salvare());
+  runApp(DUStudyLink());
 }
 
-class Salvare extends StatelessWidget {
+class DUStudyLink extends StatelessWidget {
   static ValueNotifier<ThemeData> notifier =
       ValueNotifier(DynamicColorTheme.getInstance().dayNightTheme());
   final Future<FirebaseApp> _firebaseApp = Firebase.initializeApp(
@@ -25,7 +25,7 @@ class Salvare extends StatelessWidget {
           authDomain: "salvare-da230.firebaseapp.com",
           messagingSenderId: "",
           projectId: "salvare-da230"));
-  Salvare({Key? key}) : super(key: key);
+  DUStudyLink({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

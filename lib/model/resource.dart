@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
-import 'package:salvare/model/tag.dart';
+import 'package:dustudylink/model/tag.dart';
 import 'package:metadata_fetch/metadata_fetch.dart';
 import 'package:validators/validators.dart';
 

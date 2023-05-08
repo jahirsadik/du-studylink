@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:salvare/database/database_paths.dart';
-import 'package:salvare/database/firestore_db.dart';
-import 'package:salvare/model/bucket.dart';
-import 'package:salvare/model/resource.dart';
+import 'package:dustudylink/database/database_paths.dart';
+import 'package:dustudylink/database/firestore_db.dart';
+import 'package:dustudylink/model/bucket.dart';
+import 'package:dustudylink/model/resource.dart';
 import 'package:flutter/foundation.dart';
 import 'package:validators/validators.dart';
 
@@ -151,9 +151,9 @@ class BucketController {
     try {
       String? _uid = await FireStoreDB().getUserUID(email);
       if (_uid == null) {
-        debugPrint("User doesn't have an account in salvare!");
+        debugPrint("User doesn't have an account in dustudylink!");
       } else {
-        debugPrint("User does have an account in salvare! $_uid");
+        debugPrint("User does have an account in dustudylink! $_uid");
         FireStoreDB().addUserToBucketDB(bucketID, _uid);
         return _uid;
       }

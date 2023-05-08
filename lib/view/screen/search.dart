@@ -2,13 +2,13 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:salvare/controller/resource_controller.dart';
-import 'package:salvare/controller/search_controller.dart';
-import 'package:salvare/controller/tag_category_controller.dart';
-import 'package:salvare/model/resource.dart';
-import 'package:salvare/model/tag.dart';
-import 'package:salvare/theme/constants.dart';
-import 'package:salvare/view/component/resource_card.dart';
+import 'package:dustudylink/controller/resource_controller.dart';
+import 'package:dustudylink/controller/search_controller.dart';
+import 'package:dustudylink/controller/tag_category_controller.dart';
+import 'package:dustudylink/model/resource.dart';
+import 'package:dustudylink/model/tag.dart';
+import 'package:dustudylink/theme/constants.dart';
+import 'package:dustudylink/view/component/resource_card.dart';
 
 class Search extends StatefulWidget {
   const Search({Key? key}) : super(key: key);

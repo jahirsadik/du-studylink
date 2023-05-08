@@ -5,16 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:salvare/controller/dashboard_controller.dart';
-import 'package:salvare/controller/resource_controller.dart';
-import 'package:salvare/controller/tag_category_controller.dart';
-import 'package:salvare/main.dart';
-import 'package:salvare/model/resource.dart';
-import 'package:salvare/model/tag.dart';
-import 'package:salvare/theme/constants.dart';
-import 'package:salvare/view/component/resource_card.dart';
-import 'package:salvare/view/component/resource_form.dart';
-import 'package:salvare/view/screen/profile_page.dart';
+import 'package:dustudylink/controller/dashboard_controller.dart';
+import 'package:dustudylink/controller/resource_controller.dart';
+import 'package:dustudylink/controller/tag_category_controller.dart';
+import 'package:dustudylink/main.dart';
+import 'package:dustudylink/model/resource.dart';
+import 'package:dustudylink/model/tag.dart';
+import 'package:dustudylink/theme/constants.dart';
+import 'package:dustudylink/view/component/resource_card.dart';
+import 'package:dustudylink/view/component/resource_form.dart';
+import 'package:dustudylink/view/screen/profile_page.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -41,7 +41,8 @@ class _DashboardState extends State<Dashboard> {
                   await tagCategoryController.checkIfCatExists(_catTEC.text);
                   if (_formkey.currentState!.validate()) {
                     tagCategoryController.addCategory(_catTEC.text);
-                    showSalvareToast(context, 'Category successfully added!');
+                    showDUStudyLinkToast(
+                        context, 'Category successfully added!');
                     Navigator.of(context).pop();
                   }
                 },
@@ -92,7 +93,7 @@ class _DashboardState extends State<Dashboard> {
                   if (_formkey.currentState!.validate()) {
                     tagCategoryController
                         .addTag(Tag.unlaunched(_tagTEC.text, 0xFFFFC107));
-                    showSalvareToast(context, 'Tag successfully added!');
+                    showDUStudyLinkToast(context, 'Tag successfully added!');
                     Navigator.of(context).pop();
                   }
                 },
@@ -131,7 +132,7 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) => Scaffold(
         floatingActionButton: ValueListenableBuilder<ThemeData>(
-            valueListenable: Salvare.notifier,
+            valueListenable: DUStudyLink.notifier,
             builder: (context, theme, _) {
               return SpeedDial(
                 icon: FeatherIcons.plus,

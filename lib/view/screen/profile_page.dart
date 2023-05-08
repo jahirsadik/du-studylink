@@ -2,12 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:salvare/database/firestore_db.dart';
-import 'package:salvare/theme/constants.dart';
-import 'package:salvare/view/component/appbar_widget.dart';
-import 'package:salvare/view/component/profile_widget.dart';
-import 'package:salvare/model/user.dart' as model;
-import 'package:salvare/view/screen/edit_profile_page.dart';
+import 'package:dustudylink/database/firestore_db.dart';
+import 'package:dustudylink/theme/constants.dart';
+import 'package:dustudylink/view/component/appbar_widget.dart';
+import 'package:dustudylink/view/component/profile_widget.dart';
+import 'package:dustudylink/model/user.dart' as model;
+import 'package:dustudylink/view/screen/edit_profile_page.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);

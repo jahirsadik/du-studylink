@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:salvare/controller/authentication.dart';
-import 'package:salvare/theme/constants.dart';
-import 'package:salvare/view/screen/sign_in_screen.dart';
+import 'package:dustudylink/controller/authentication.dart';
+import 'package:dustudylink/theme/constants.dart';
+import 'package:dustudylink/view/screen/sign_in_screen.dart';
 
 Route _routeToSignInScreen() {
   return PageRouteBuilder(

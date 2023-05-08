@@ -291,7 +291,7 @@ extension FontFix on TextStyle {
   }
 }
 
-void showSalvareToast(context, text) => showToast(
+void showDUStudyLinkToast(context, text) => showToast(
       text,
       context: context,
       textStyle:

@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
-import 'package:salvare/database/firestore_db.dart';
-import 'package:salvare/model/resource.dart';
-import 'package:salvare/model/tag.dart';
-import 'package:salvare/utils.dart';
+import 'package:dustudylink/database/firestore_db.dart';
+import 'package:dustudylink/model/resource.dart';
+import 'package:dustudylink/model/tag.dart';
+import 'package:dustudylink/utils.dart';
 
 class SearchController {
   static final SearchController _singleton = SearchController._internal();

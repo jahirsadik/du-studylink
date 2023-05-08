@@ -1,12 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:salvare/database/firestore_db.dart';
-import 'package:salvare/main.dart';
-import 'package:salvare/theme/constants.dart';
-import 'package:salvare/view/component/appbar_widget.dart';
-import 'package:salvare/view/component/profile_widget.dart';
-import 'package:salvare/model/user.dart' as model;
+import 'package:dustudylink/database/firestore_db.dart';
+import 'package:dustudylink/main.dart';
+import 'package:dustudylink/theme/constants.dart';
+import 'package:dustudylink/view/component/appbar_widget.dart';
+import 'package:dustudylink/view/component/profile_widget.dart';
+import 'package:dustudylink/model/user.dart' as model;
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({Key? key}) : super(key: key);
@@ -111,7 +111,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
       FireStoreDB().addUserDB(_user);
 
-      showSalvareToast(context, 'Registering');
+      showDUStudyLinkToast(context, 'Registering');
 
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(

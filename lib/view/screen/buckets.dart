@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:salvare/controller/bucket_controller.dart';
-import 'package:salvare/database/firestore_db.dart';
-import 'package:salvare/main.dart';
-import 'package:salvare/model/bucket.dart';
-import 'package:salvare/theme/constants.dart';
+import 'package:dustudylink/controller/bucket_controller.dart';
+import 'package:dustudylink/database/firestore_db.dart';
+import 'package:dustudylink/main.dart';
+import 'package:dustudylink/model/bucket.dart';
+import 'package:dustudylink/theme/constants.dart';
 
 import 'bucket_resources.dart';
 
@@ -98,7 +98,7 @@ class _BucketsState extends State<Buckets> {
   @override
   Widget build(BuildContext context) => Scaffold(
         floatingActionButton: ValueListenableBuilder<ThemeData>(
-          valueListenable: Salvare.notifier,
+          valueListenable: DUStudyLink.notifier,
           builder: (context, theme, _) {
             return FloatingActionButton(
               foregroundColor: Colors.white,
@@ -119,7 +119,7 @@ class _BucketsState extends State<Buckets> {
                 debugPrint("Firebase resource stream successfull");
                 var buckets = snapshot.data!.docs.map((e) => e.data()).toList();
                 return ValueListenableBuilder<ThemeData>(
-                  valueListenable: Salvare.notifier,
+                  valueListenable: DUStudyLink.notifier,
                   builder: (context, theme, _) {
                     return ListView.builder(
                         physics: const BouncingScrollPhysics(),

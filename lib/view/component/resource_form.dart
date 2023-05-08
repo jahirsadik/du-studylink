@@ -2,13 +2,13 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:salvare/controller/bucket_controller.dart';
-import 'package:salvare/controller/resource_controller.dart';
-import 'package:salvare/controller/tag_category_controller.dart';
-import 'package:salvare/model/bucket.dart';
-import 'package:salvare/model/resource.dart';
-import 'package:salvare/model/tag.dart';
-import 'package:salvare/theme/constants.dart';
+import 'package:dustudylink/controller/bucket_controller.dart';
+import 'package:dustudylink/controller/resource_controller.dart';
+import 'package:dustudylink/controller/tag_category_controller.dart';
+import 'package:dustudylink/model/bucket.dart';
+import 'package:dustudylink/model/resource.dart';
+import 'package:dustudylink/model/tag.dart';
+import 'package:dustudylink/theme/constants.dart';
 
 Future<Object?> showResourceForm({
   required BuildContext context,

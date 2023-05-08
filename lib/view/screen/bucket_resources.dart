@@ -5,13 +5,13 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:salvare/controller/bucket_controller.dart';
-import 'package:salvare/database/firestore_db.dart';
-import 'package:salvare/model/bucket.dart';
-import 'package:salvare/model/resource.dart';
-import 'package:salvare/theme/constants.dart';
-import 'package:salvare/view/component/resource_card.dart';
-import 'package:salvare/view/component/resource_form.dart';
+import 'package:dustudylink/controller/bucket_controller.dart';
+import 'package:dustudylink/database/firestore_db.dart';
+import 'package:dustudylink/model/bucket.dart';
+import 'package:dustudylink/model/resource.dart';
+import 'package:dustudylink/theme/constants.dart';
+import 'package:dustudylink/view/component/resource_card.dart';
+import 'package:dustudylink/view/component/resource_form.dart';
 
 class BucketResources extends StatefulWidget {
   const BucketResources({Key? key, required this.bucket}) : super(key: key);
@@ -216,7 +216,7 @@ class _BucketResourcesState extends State<BucketResources> {
                         _userTEC.text, widget.bucket.id);
                     if (!widget.bucket.users.contains(addedUid)) {
                       widget.bucket.users.add(addedUid!);
-                      showSalvareToast(context, 'User added to bucket!');
+                      showDUStudyLinkToast(context, 'User added to bucket!');
                     }
                     await _refreshEmailData();
                   }
@@ -254,7 +254,8 @@ class _BucketResourcesState extends State<BucketResources> {
                           addedUid = await bucketController.addUserToBucket(
                               _userTEC.text, widget.bucket.id);
                           widget.bucket.users.add(addedUid!);
-                          showSalvareToast(context, 'User added to bucket!');
+                          showDUStudyLinkToast(
+                              context, 'User added to bucket!');
                           await _refreshEmailData();
                         }
                       },

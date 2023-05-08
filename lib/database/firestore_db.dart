@@ -2,11 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:salvare/database/database_paths.dart';
-import 'package:salvare/model/bucket.dart';
-import 'package:salvare/model/resource.dart';
-import 'package:salvare/model/tag.dart';
-import 'package:salvare/model/user.dart' as model;
+import 'package:dustudylink/database/database_paths.dart';
+import 'package:dustudylink/model/bucket.dart';
+import 'package:dustudylink/model/resource.dart';
+import 'package:dustudylink/model/tag.dart';
+import 'package:dustudylink/model/user.dart' as model;
 
 class FireStoreDB {
   Future<void> addUserDB(model.User user) async {

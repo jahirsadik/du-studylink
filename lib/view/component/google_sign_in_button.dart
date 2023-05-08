@@ -1,12 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:salvare/controller/authentication.dart';
-import 'package:salvare/database/firestore_db.dart';
-import 'package:salvare/main.dart';
-import 'package:salvare/theme/constants.dart';
-import 'package:salvare/model/user.dart' as model;
-import 'package:salvare/view/screen/registration_page.dart';
+import 'package:dustudylink/controller/authentication.dart';
+import 'package:dustudylink/database/firestore_db.dart';
+import 'package:dustudylink/main.dart';
+import 'package:dustudylink/theme/constants.dart';
+import 'package:dustudylink/model/user.dart' as model;
+import 'package:dustudylink/view/screen/registration_page.dart';
 
 class GoogleSignInButton extends StatefulWidget {
   const GoogleSignInButton({Key? key}) : super(key: key);

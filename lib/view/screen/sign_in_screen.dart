@@ -3,9 +3,9 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:salvare/controller/authentication.dart';
-import 'package:salvare/theme/constants.dart';
-import 'package:salvare/view/component/google_sign_in_button.dart';
+import 'package:dustudylink/controller/authentication.dart';
+import 'package:dustudylink/theme/constants.dart';
+import 'package:dustudylink/view/component/google_sign_in_button.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({Key? key}) : super(key: key);

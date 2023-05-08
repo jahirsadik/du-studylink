@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:salvare/model/resource.dart';
+import 'package:dustudylink/model/resource.dart';
 
 part 'tag.g.dart';
 

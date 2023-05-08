@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:salvare/database/firestore_db.dart';
-import 'package:salvare/main.dart';
-import 'package:salvare/theme/constants.dart';
-import 'package:salvare/utils.dart';
-import 'package:salvare/view/component/appbar_widget.dart';
-import 'package:salvare/view/component/profile_widget.dart';
-import 'package:salvare/model/user.dart' as model;
-import 'package:salvare/view/screen/profile_page.dart';
+import 'package:dustudylink/database/firestore_db.dart';
+import 'package:dustudylink/main.dart';
+import 'package:dustudylink/theme/constants.dart';
+import 'package:dustudylink/utils.dart';
+import 'package:dustudylink/view/component/appbar_widget.dart';
+import 'package:dustudylink/view/component/profile_widget.dart';
+import 'package:dustudylink/model/user.dart' as model;
+import 'package:dustudylink/view/screen/profile_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:switcher_button/switcher_button.dart';
 
@@ -130,7 +130,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   void onPressedSaveButton() async {
     if (_formState.currentState!.validate()) {
-      showSalvareToast(context, 'Saving changes');
+      showDUStudyLinkToast(context, 'Saving changes');
 
       model.User? _user = await FireStoreDB().fetchUserInfoDB();
       if (_user == null) {
@@ -230,7 +230,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       snapshot.data!.setString(
                           'accent', swatchReverseLookupTable[value] ?? 'teal');
                       await DynamicColorTheme.create();
-                      Salvare.notifier.value =
+                      DUStudyLink.notifier.value =
                           DynamicColorTheme.getInstance().dayNightTheme();
                     },
                     selectedColor: swatchLookupTable[
@@ -270,7 +270,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 onChange: (value) async {
                   snapshot.data!.setBool('darkMode', value);
                   await DynamicColorTheme.create();
-                  Salvare.notifier.value =
+                  DUStudyLink.notifier.value =
                       DynamicColorTheme.getInstance().dayNightTheme();
                 },
               ),

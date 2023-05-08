@@ -1,4 +1,4 @@
-package com.example.salvare
+package com.example.dustudylink
 
 import io.flutter.embedding.android.FlutterActivity
 

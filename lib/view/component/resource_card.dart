@@ -4,13 +4,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:salvare/controller/bucket_controller.dart';
-import 'package:salvare/controller/resource_controller.dart';
-import 'package:salvare/model/bucket.dart';
-import 'package:salvare/model/resource.dart';
-import 'package:salvare/view/component/resource_form.dart';
+import 'package:dustudylink/controller/bucket_controller.dart';
+import 'package:dustudylink/controller/resource_controller.dart';
+import 'package:dustudylink/model/bucket.dart';
+import 'package:dustudylink/model/resource.dart';
+import 'package:dustudylink/view/component/resource_form.dart';
 import 'package:transparent_image/transparent_image.dart';
-import 'package:salvare/theme/constants.dart';
+import 'package:dustudylink/theme/constants.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:cached_network_image_platform_interface/cached_network_image_platform_interface.dart';
@@ -320,7 +320,7 @@ class ResourceCard extends StatelessWidget {
 
   void copyLink(BuildContext context) {
     resourceController.copyResourceURL(resource);
-    showSalvareToast(context, 'Link copied to the clipboard!');
+    showDUStudyLinkToast(context, 'Link copied to the clipboard!');
   }
 
   Future<Object?> showDeleteAlert(BuildContext context) async {

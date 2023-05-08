@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:salvare/database/firestore_db.dart';
-import 'package:salvare/model/tag.dart';
+import 'package:dustudylink/database/firestore_db.dart';
+import 'package:dustudylink/model/tag.dart';
 import 'package:collection/collection.dart';
 
 class TagCategoryController {
