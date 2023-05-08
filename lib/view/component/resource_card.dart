@@ -1,6 +1,4 @@
-import 'dart:ui';
 import 'dart:math';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -11,9 +9,7 @@ import 'package:dustudylink/model/resource.dart';
 import 'package:dustudylink/view/component/resource_form.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:dustudylink/theme/constants.dart';
-import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:cached_network_image_platform_interface/cached_network_image_platform_interface.dart';
 
 final ResourceController resourceController = ResourceController();
 final BucketController bucketController = BucketController();
@@ -36,9 +32,7 @@ class ResourceCard extends StatelessWidget {
   }
 
   ImageProvider<Object> fetchImage(imageURL) {
-    var rng = Random();
-    String imagePath = 'assets/no_img${rng.nextInt(10)}.png';
-    var noImg = AssetImage(imagePath);
+    var noImg = AssetImage('assets/no_img7.png');
     if (imageURL != null) {
       try {
         // return CachedNetworkImageProvider(
@@ -145,10 +139,8 @@ class ResourceCard extends StatelessWidget {
                       image: fetchImage(resource.imageUrl),
                       fit: BoxFit.cover,
                       imageErrorBuilder: (context, error, stackTrace) {
-                        var rng = Random();
-                        String imagePath =
-                            'assets/no_img${rng.nextInt(10)}.png';
-                        return Image.asset(imagePath, fit: BoxFit.cover);
+                        return Image.asset('assets/no_img7.png',
+                            fit: BoxFit.cover);
                       },
                     ),
                   ),

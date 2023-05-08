@@ -850,7 +850,8 @@ class FireStoreDB {
           fromFirestore: (snapshot, _) => Resource.fromJson(snapshot.data()!),
           toFirestore: (_resource, _) => _resource.toJson(),
         )
-        .snapshots();
+        .snapshots()
+        .handleError((e) => debugPrint("stream error: ${e.toString()}"));
   }
 
   Future<List<Resource>?> searchResourceUsingTagDB(Tag _tag) async {

@@ -216,6 +216,8 @@ class _DashboardState extends State<Dashboard> {
                             crossAxisCount:
                                 MediaQuery.of(context).size.width > 800 ? 4 : 1,
                             itemBuilder: (context, index) {
+                              debugPrint(
+                                  "building card for ${resources2[index].toString()}");
                               return ResourceCard(
                                   resource: resources2[index] as Resource);
                             }),

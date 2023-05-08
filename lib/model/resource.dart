@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
 import 'package:dustudylink/model/tag.dart';
+import 'package:flutter/material.dart';
 import 'package:metadata_fetch/metadata_fetch.dart';
 import 'package:validators/validators.dart';
 
@@ -48,8 +49,10 @@ class Resource {
     category = _to;
   }
 
-  factory Resource.fromJson(Map<String, dynamic> json) =>
-      _$ResourceFromJson(json);
+  factory Resource.fromJson(Map<String, dynamic> json) {
+    debugPrint(json.toString());
+    return _$ResourceFromJson(json);
+  }
 
   Map<String, dynamic> toJson() => _$ResourceToJson(this);
 
