@@ -33,8 +33,7 @@ By focusing on user-friendliness and accessibility, DUStudyLink aims to cater to
 - **Generate User Insights:** Offer statistical insights regarding the user's saved content and sharing activity.
 - **Support Course Resource Sharing:** Develop features that allow users to share resources specifically related to their courses, enhancing collaborative learning.
 
-## Project Team
-- **Project Group:** B
+## Contact
 - **Team Members:**
   - Deeparghya Dutta Barua (028)
   - Jahir Sadik Monon (032)
